@@ -1,0 +1,23 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# SKU-110K retail items dataset https://github.com/eg4000/SKU110K_CVPR19 by Trax Retail
+# Example usage: python train.py --data SKU-110K.yaml
+# parent
+# ├── yolov5
+# └── datasets
+#     └── SKU-110K  ← downloads here (13.6 GB)
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../datasets/fish # dataset root dir
+train: images/train/ # train images (relative to 'path')  8219 images
+val: images/val/ # val images (relative to 'path')  588 images
+test: images/test/
+# test: test.txt  # test images (optional)  2936 images
+
+# Classes
+names:
+    0: halibut_larva_step1
+    1: halibut_larva_step2
+    2: halibut_larva_step3
+    3: halibut
+# Download script/URL (optional) ---------------------------------------------------------------------------------------
+# download: |
