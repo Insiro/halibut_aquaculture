@@ -10,7 +10,8 @@ sys.path.append(os.path.abspath("./yolov5"))
 
 from yolov5.models.common import DetectMultiBackend
 from yolov5.utils.dataloaders import LoadImages
-
+from yolov5.utils.plots import Annotator, colors
+from yolov5.utils.torch_utils import select_device, smart_inference_mode
 from yolov5.utils.general import (
     LOGGER,
     Profile,
@@ -22,10 +23,6 @@ from yolov5.utils.general import (
     scale_boxes,
     xyxy2xywh,
 )
-
-
-from yolov5.utils.plots import Annotator, colors
-from yolov5.utils.torch_utils import select_device, smart_inference_mode
 
 WEIGHT = "configs/best.pt"  # model path or triton URL
 SOURCE = "dataset/validation-data/images/val"
@@ -162,23 +159,22 @@ def detection(
 
 
 def get_total_number(np_sample, n_instance):
-    classrate = np.array(
-        [
-            np.average(np.divide(np_sample[:, 0], np_sample[:, -1])),
-            np.average(np.divide(np_sample[:, 1], np_sample[:, -1])),
-            np.average(np.divide(np_sample[:, 2], np_sample[:, -1])),
-            np.average(np.divide(np_sample[:, 3], np_sample[:, -1])),
-        ]
-    )
-    classrate = classrate * n_instance
-    return classrate
+    rated_sample = [
+        np.divide(np_sample[:, 0], np_sample[:, -1]),
+        np.divide(np_sample[:, 1], np_sample[:, -1]),
+        np.divide(np_sample[:, 2], np_sample[:, -1]),
+        np.divide(np_sample[:, 3], np_sample[:, -1]),
+    ]
+    classrate = np.average(rated_sample, axis=1)
+    class_amount = classrate * n_instance
+    return rated_sample, class_amount
 
 
 def main():
     ret = detection(nosave=False)
-    counts = np.array(get_total_number(ret, 100))
-    ret = DataFrame(counts[None], columns=TARGET_CLASSES)
-    print(ret)
+    rated_sample, class_amounts = np.array(get_total_number(ret, 100))
+    lots = DataFrame(class_amounts[None], columns=TARGET_CLASSES)
+    print(lots)
 
 
 if __name__ == "__main__":
