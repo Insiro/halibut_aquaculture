@@ -83,7 +83,7 @@ class MyApp(QtWidgets.QWidget):
 
         self.mount_view.clear()
         for idx in range(len(TARGET_CLASSES)):
-            self.mount_view.addItem(f"{TARGET_CLASSES[idx]}\t{class_amounts[idx]}")
+            self.mount_view.addItem(f"{class_amounts[idx]}%\t{TARGET_CLASSES[idx]}")
         self.mount_view.update()
         # display original image defore labeling
         # plotting
@@ -111,5 +111,3 @@ def start_gui(argv):
     app = QtWidgets.QApplication(argv)
     ex = MyApp()
     sys.exit(app.exec_())
-
-
