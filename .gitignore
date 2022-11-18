@@ -115,5 +115,12 @@ fabric.properties
 /yolov5/runs
 
 #Dataset
-dataset/
 runs/
+!dataset/**/*.py
+!dataset/*.json
+
+images
+labels
+3_*/
+2_*/
+1_*/

@@ -1,0 +1,31 @@
+{
+    "info": {
+        "val": 250
+    },
+    "data_size": [
+        {
+            "class": 0,
+            "name": "halibut_larva_step1",
+            "name_kr": "넙치유생_변태1단계",
+            "val": 50
+        },
+        {
+            "class": 1,
+            "name": "halibut_larva_step2",
+            "name_kr": "넙치유생_변태2단계",
+            "val": 50
+        },
+        {
+            "class": 2,
+            "name": "halibut_larva_step3",
+            "name_kr": "넙치유생_변태3단계",
+            "val": 50
+        },
+        {
+            "class": 3,
+            "name": "halibut",
+            "name_kr": "넙치치어",
+            "val": 100
+        }
+    ]
+}
