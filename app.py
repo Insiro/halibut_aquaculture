@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, QtGui
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import matplotlib.pyplot as plt
 import numpy as np
-from main import get_total_number, detection, TARGET_CLASSES
+from service import get_total_number, detection, TARGET_CLASSES
 
 
 class MyApp(QtWidgets.QWidget):
@@ -113,5 +113,3 @@ def start_gui(argv):
     sys.exit(app.exec_())
 
 
-argv: list[str] = sys.argv
-start_gui(argv)
