@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 
 import torch
+from pandas import DataFrame
 
 sys.path.append(os.path.abspath("./yolov5"))
 
@@ -158,3 +159,27 @@ def detection(
         % t
     )
     return np.array(total_instance)
+
+
+def get_total_number(np_sample, n_instance):
+    classrate = np.array(
+        [
+            np.average(np.divide(np_sample[:, 0], np_sample[:, -1])),
+            np.average(np.divide(np_sample[:, 1], np_sample[:, -1])),
+            np.average(np.divide(np_sample[:, 2], np_sample[:, -1])),
+            np.average(np.divide(np_sample[:, 3], np_sample[:, -1])),
+        ]
+    )
+    classrate = classrate * n_instance
+    return classrate
+
+
+def main():
+    ret = detection(nosave=True)
+    counts = np.array(get_total_number(ret, 100))
+    ret = DataFrame(counts[None], columns=TARGET_CLASSES)
+    print(ret)
+
+
+if __name__ == "__main__":
+    main()
