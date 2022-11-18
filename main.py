@@ -28,7 +28,7 @@ from yolov5.utils.plots import Annotator, colors
 from yolov5.utils.torch_utils import select_device, smart_inference_mode
 
 WEIGHT = "configs/best.pt"  # model path or triton URL
-SOURCE = "/data/datasets/fish/train-data/images/test"
+SOURCE = "dataset/validation-data/images/val"
 DATA = "configs/fish.yaml"  # dataset.yaml path
 
 TARGET_CLASSES = [
@@ -175,7 +175,7 @@ def get_total_number(np_sample, n_instance):
 
 
 def main():
-    ret = detection(nosave=True)
+    ret = detection(nosave=False)
     counts = np.array(get_total_number(ret, 100))
     ret = DataFrame(counts[None], columns=TARGET_CLASSES)
     print(ret)
