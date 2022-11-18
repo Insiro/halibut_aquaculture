@@ -66,7 +66,7 @@ for label_id, path_info in enumerate(pathList):
     size = 0
     for file_name in os.listdir(path.join(LABEL_PATH, path_info["path"])):
         current = path.join(LABEL_PATH, path_info["path"], file_name)
-        with open(current) as labeled:
+        with open(current, 'rt', encoding='UTF-8') as labeled:
             label_info = json.load(labeled)
         yolo_lines = transform2yolo(label_id, label_info)
 
