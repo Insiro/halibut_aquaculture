@@ -59,7 +59,7 @@ def detection(
 ):
     total_instance = []
     source = str(source)
-
+    file_names = []
     # Directories
     if not nosave:
         save_dir = increment_path(
@@ -143,6 +143,7 @@ def detection(
             im0 = annotator.result()
             # Save results (image with detections)
             if not nosave:
+                file_names.append(p.name)
                 save_path = str(save_dir / p.name)  # im.jpg
                 cv2.imwrite(save_path, im0)
                 LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}/{p.name}")
@@ -155,7 +156,8 @@ def detection(
         f"Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}"
         % t
     )
-    return np.array(total_instance)
+    output_dict = {"save_dir": save_dir, "files": file_names}
+    return np.array(total_instance), output_dict
 
 
 def get_total_number(np_sample, n_instance):
@@ -171,7 +173,7 @@ def get_total_number(np_sample, n_instance):
 
 
 def main():
-    ret = detection(nosave=False)
+    ret, save_information = detection(nosave=False)
     rated_sample, class_amounts = np.array(get_total_number(ret, 100))
     lots = DataFrame(class_amounts[None], columns=TARGET_CLASSES)
     print(lots)
